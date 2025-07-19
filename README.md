@@ -1,100 +1,123 @@
-# Welcome to React Router!
+# 🍽️ ランチマップ
 
-A modern, production-ready template for building full-stack React applications using React Router.
+東京都内のランチスポットを地図で検索・表示するWebアプリケーション
 
-[![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/github/remix-run/react-router-templates/tree/main/default)
+[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https://github.com/YOUR_USERNAME/lunch-map)
 
-## Features
+## ✨ 主要機能
 
-- 🚀 Server-side rendering
-- ⚡️ Hot Module Replacement (HMR)
-- 📦 Asset bundling and optimization
-- 🔄 Data loading and mutations
-- 🔒 TypeScript by default
-- 🎉 TailwindCSS for styling
-- 📖 [React Router docs](https://reactrouter.com/)
+- 🗺️ **インタラクティブな地図表示** - Leaflet + OpenStreetMap
+- 🔍 **高度な検索・絞り込み** - 料理ジャンル、価格帯、営業状況、混雑状況
+- 🏪 **詳細な店舗情報** - 営業時間、連絡先、アクセス情報
+- 📱 **レスポンシブデザイン** - モバイル・デスクトップ対応
+- ⚡ **高速なSSR** - React Router v7による最適化
+- 🔜 **Coming Soon機能** - 東京以外の地域対応予告
 
-## Getting Started
+## 🛠️ 技術スタック
 
-### Installation
+- **フロントエンド**: React Router v7 (SSR)
+- **地図**: Leaflet + OpenStreetMap
+- **データベース**: Turso Cloud (SQLite)
+- **スタイリング**: Tailwind CSS
+- **デプロイ**: Vercel
+- **型安全性**: TypeScript
 
-Install the dependencies:
+## 🚀 セットアップ
+
+### 1. 依存関係のインストール
 
 ```bash
 npm install
 ```
 
-### Development
+### 2. 環境変数の設定
 
-Start the development server with HMR:
+`.env`ファイルを作成し、以下を設定:
+
+```env
+TURSO_DATABASE_URL=libsql://your-database-name.turso.io
+TURSO_AUTH_TOKEN=your-auth-token-here
+```
+
+### 3. 開発サーバーの起動
 
 ```bash
 npm run dev
 ```
 
-Your application will be available at `http://localhost:5173`.
+アプリケーションは `http://localhost:5173` で利用できます。
 
-## Building for Production
-
-Create a production build:
+## 📦 プロダクションビルド
 
 ```bash
 npm run build
 ```
 
-## Deployment
+## 🌐 デプロイ手順
 
-### Docker Deployment
+### 1. Turso Cloudデータベースの作成
 
-This template includes three Dockerfiles optimized for different package managers:
+1. [Turso](https://turso.tech/)にアカウント作成
+2. データベースを作成:
+   ```bash
+   turso db create lunch-map-db
+   ```
+3. 認証トークンを取得:
+   ```bash
+   turso db tokens create lunch-map-db
+   ```
 
-- `Dockerfile` - for npm
-- `Dockerfile.pnpm` - for pnpm
-- `Dockerfile.bun` - for bun
-
-To build and run using Docker:
+### 2. GitHubリポジトリの作成
 
 ```bash
-# For npm
-docker build -t my-app .
-
-# For pnpm
-docker build -f Dockerfile.pnpm -t my-app .
-
-# For bun
-docker build -f Dockerfile.bun -t my-app .
-
-# Run the container
-docker run -p 3000:3000 my-app
+# GitHubでリポジトリを作成後
+git remote add origin https://github.com/YOUR_USERNAME/lunch-map.git
+git push -u origin main
 ```
 
-The containerized application can be deployed to any platform that supports Docker, including:
+### 3. Vercelでのデプロイ
 
-- AWS ECS
-- Google Cloud Run
-- Azure Container Apps
-- Digital Ocean App Platform
-- Fly.io
-- Railway
+1. [Vercel](https://vercel.com/)にGitHubアカウントでログイン
+2. 「New Project」からGitHubリポジトリを選択
+3. 環境変数を設定:
+   - `TURSO_DATABASE_URL`: Tursoデータベース URL
+   - `TURSO_AUTH_TOKEN`: Turso認証トークン
+4. 「Deploy」ボタンでデプロイ開始
 
-### DIY Deployment
+### 4. Docker Deployment (Optional)
 
-If you're familiar with deploying Node applications, the built-in app server is production-ready.
-
-Make sure to deploy the output of `npm run build`
-
-```
-├── package.json
-├── package-lock.json (or pnpm-lock.yaml, or bun.lockb)
-├── build/
-│   ├── client/    # Static assets
-│   └── server/    # Server-side code
+```bash
+docker build -t lunch-map .
+docker run -p 3000:3000 lunch-map
 ```
 
-## Styling
+## 📁 プロジェクト構造
 
-This template comes with [Tailwind CSS](https://tailwindcss.com/) already configured for a simple default starting experience. You can use whatever CSS framework you prefer.
+```
+app/
+├── components/          # 再利用可能なコンポーネント
+│   ├── Map.tsx         # 地図表示ラッパー
+│   └── MapClient.tsx   # 実際の地図コンポーネント
+├── lib/
+│   └── db.server.ts    # データベース操作関数
+├── routes/             # ページルート
+│   ├── home.tsx        # ホームページ
+│   ├── map.tsx         # 地図ページ
+│   ├── restaurant.tsx  # 店舗詳細ページ
+│   └── coming-soon.tsx # Coming Soonページ
+├── types/
+│   └── restaurant.ts   # 型定義
+└── routes.ts           # ルート設定
+```
+
+## 🤝 貢献
+
+プルリクエストや Issue の投稿を歓迎します！
+
+## 📄 ライセンス
+
+MIT License
 
 ---
 
-Built with ❤️ using React Router.
+🤖 Generated with [Claude Code](https://claude.ai/code)
