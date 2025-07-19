@@ -1,22 +1,75 @@
-# ランチマップ 要求仕様書
+# CLAUDE.md
+
+This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
 ## プロジェクト概要
-ランチスポットを地図上で検索・表示するWebアプリケーション（初回リリースは東京都対応）
 
-## サービス名
-**ランチマップ**
+東京ランチマップ - React Router v7 + Turso Cloud + Vercelを使用したSSR対応のランチスポット検索Webアプリケーション。
 
-## ターゲットユーザー
-- 会社員のランチタイム利用者
-- 日曜日のファミリー利用者
+## 開発コマンド
+
+- **開発サーバー起動**: `npm run dev` (http://localhost:5173)
+- **プロダクションビルド**: `npm run build`
+- **型チェック**: `npm run typecheck`
+- **プロダクションサーバー**: `npm start`
 
 ## 技術スタック
-- **フロントエンド**: React Router v7（SSR対応）
-- **レンダリング方式**: Server-Side Rendering (SSR)
-- **データベース**: Turso Cloud (SQLite)
-- **デプロイ**: Vercel
-- **地図API**: 無料範囲内（Google Maps、OpenStreetMap等）
-- **店舗データ取得**: Google Places API、OpenStreetMap、ぐるなびAPI等の組み合わせ
+
+- **フロントエンド**: React Router v7 with SSR
+- **スタイリング**: Tailwind CSS
+- **地図**: Leaflet + OpenStreetMap
+- **データベース**: Turso Cloud (SQLite) + @libsql/client
+- **デプロイ**: Vercel + @vercel/react-router
+- **型定義**: TypeScript
+
+## プロジェクト構造
+
+```
+app/
+├── components/          # 再利用可能なコンポーネント
+│   └── Map.tsx         # Leaflet地図コンポーネント
+├── lib/
+│   └── db.server.ts    # データベース設定とクエリ関数
+├── routes/             # ページルート
+│   ├── home.tsx        # ホームページ
+│   ├── map.tsx         # 地図ページ（メイン機能）
+│   ├── restaurant.tsx  # 店舗詳細ページ
+│   └── coming-soon.tsx # Coming Soonページ
+├── routes.ts           # ルート設定
+└── root.tsx           # アプリケーションルート
+```
+
+## データベーススキーマ
+
+### restaurants テーブル
+- 基本情報: name, address, latitude, longitude
+- カテゴリ: cuisine_type, price_range
+- 営業情報: opening_hours, is_open, crowdedness_level
+- 追加情報: phone, website, photo_url, description, capacity
+
+## 環境変数
+
+`.env`ファイルに以下を設定:
+```
+TURSO_DATABASE_URL=libsql://your-database.turso.io
+TURSO_AUTH_TOKEN=your-auth-token
+```
+
+## 主要機能
+
+1. **地図表示**: Leaflet + OpenStreetMapによる東京都の地図表示
+2. **店舗マーカー**: 料理ジャンル別のアイコンと混雑状況による色分け
+3. **検索・絞り込み**: 料理ジャンル、価格帯、営業状況、混雑状況での絞り込み
+4. **店舗詳細**: 店舗情報、アクセス、営業時間等の詳細表示
+5. **レスポンシブ**: モバイル・デスクトップ対応
+6. **SSR**: SEO対応とパフォーマンス最適化
+
+## 開発時の注意点
+
+- Leafletコンポーネントはクライアントサイドでのみ動作するため、useEffectで初期化
+- 地図マーカーのカスタムアイコンはdivIconを使用
+- データベース初期化とサンプルデータ挿入は初回ローダー実行時に自動実行
+- Turso Cloudのローカル開発では`file:local.db`が使用される
 
 ## 主要機能
 

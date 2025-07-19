@@ -1,6 +1,39 @@
-.DS_Store
-/node_modules/
+# Dependencies
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
 
-# React Router
-/.react-router/
-/build/
+# Production builds
+/build
+/dist
+
+# Environment variables
+.env
+.env.local
+.env.production
+
+# Database
+local.db
+local.db-*
+
+# Runtime
+.cache/
+
+# MacOS
+.DS_Store
+
+# VS Code
+.vscode/
+
+# IDE
+*.swp
+*.swo
+
+# Logs
+logs
+*.log
+
+# Temporary files
+*.tmp
+*.temp
