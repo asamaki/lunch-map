@@ -2,7 +2,7 @@
 
 東京都内のランチスポットを地図で検索・表示するWebアプリケーション
 
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https://github.com/YOUR_USERNAME/lunch-map)
+[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https://github.com/asamaki/lunch-map)
 
 ## ✨ 主要機能
 
@@ -69,11 +69,7 @@ npm run build
 
 ### 2. GitHubリポジトリの作成
 
-```bash
-# GitHubでリポジトリを作成後
-git remote add origin https://github.com/YOUR_USERNAME/lunch-map.git
-git push -u origin main
-```
+✅ **完了済み** - リポジトリURL: https://github.com/asamaki/lunch-map
 
 ### 3. Vercelでのデプロイ
 
